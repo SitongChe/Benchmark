@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+    <LangVersion>Preview</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+	<TieredPGO>true</TieredPGO>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="benchmarkdotnet" Version="0.13.2" />
+  </ItemGroup>
+  
+
+
+</Project>
