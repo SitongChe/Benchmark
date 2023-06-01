@@ -1,14 +1,9 @@
 # Benchmark
+learning from Performance Improvements in .NET 7 - .NET Blog (microsoft.com)![image](https://github.com/SitongChe/Benchmark/assets/12755002/8f7359a8-d4b0-427f-ba68-84874b61b486)
 
-BenchmarkDotNet=v0.13.2, OS=Windows 11 (10.0.22621.1702), VM=Hyper-V
-Intel Xeon Platinum 8370C CPU 2.80GHz, 1 CPU, 16 logical and 8 physical cores
-.NET SDK=7.0.302
-  [Host]     : .NET 7.0.5 (7.0.523.17405), X64 RyuJIT AVX2
-  Job-EWYKMV : .NET 7.0.5 (7.0.523.17405), X64 RyuJIT AVX2
 
-Runtime=.NET 7.0  Toolchain=net7.0
+to run a benchmark comparing performance on .NET 6 and .NET 7, do:
+dotnet run -c Release -f net6.0 --filter '**' --runtimes net6.0 net7.0
 
-|          Method |     Mean | Ratio | Code Size | Allocated | Alloc Ratio |
-|---------------- |---------:|------:|----------:|----------:|------------:|
-|     Interpreter | 145.6 ns |  1.00 |     112 B |         - |          NA |
-| SourceGenerator | 127.7 ns |  0.88 |     119 B |         - |          NA |
+Or to run just on .NET 7:
+dotnet run -c Release -f net7.0 --filter '**' --runtimes net7.0![image](https://github.com/SitongChe/Benchmark/assets/12755002/79075b13-0048-4ce0-b3e3-870d66d44d27)
