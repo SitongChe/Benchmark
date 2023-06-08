@@ -1,4 +1,4 @@
-﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 using Microsoft.Win32;
 using System;
@@ -37,33 +37,19 @@ using System.Xml;
 [HideColumns("Error", "StdDev", "Median", "RatioSD")]
 public partial class Program
 {
+
+    private const string ReportColumnGroup = "ReportColumn";
     static void Main(string[] args) => BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
 
-    private static readonly string s_haystack = "test string that contains some {= Feed. Attribute1 :d} d {= Feed . Attribute2 :$19.95} d {= Feed.Attribute3:b} f {= Feed  .  Attribute4  :a} rem {  COUNTDOWN(2023-09-01 11:11:11) )  }";
+    private static readonly string s_haystack = " sdf Entity.ReportColumn test string that contains some {= Feed. Attribute1 :d} d {= Feed . Attribute2 :$19.95} d {= Feed.Attribute3:b} f {= Feed  .  Attribute4  :a} rem {  COUNTDOWN(2023-09-01 11:11:11) )  }";
 
-    private Regex FuncRegex = new Regex(
-@"
-            \{\=
-                (?<funcname>[^(.]*)                 # Function name
-                [(]                                 # Start of (
-                    (?<params>.*?(?=(?<!\\)\))*)    # params everything between ( and )
-                [)]                                 # End of )
-                (?<default>.*)                      # skip all whitespaces between ) and }
-            \}",
-            RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
+    private static Regex reportColumnRegex = new Regex($@"(\w+\.)?(?<{ReportColumnGroup}>\w+)");
 
-    [GeneratedRegex(@"
-            \{\=
-                (?<funcname>[^(.]*)                 
-                [(]                                 
-                    (?<params>.*?(?=(?<!\\)\))*)    
-                [)]                                 
-                (?<default>.*)                     
-            \}",
-            RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace)]
-    private partial Regex SG();
+    [GeneratedRegex($@"(\w+\.)?(?<{ReportColumnGroup}>\w+)")]
+    private static partial Regex ReportColumnRegex();
 
-    [Benchmark(Baseline = true)] public Match Interpreter() => FuncRegex.Match(s_haystack);
+    [Benchmark(Baseline = true)] public string Interpreter() => reportColumnRegex.Replace(s_haystack, " ");
 
-    [Benchmark] public Match SourceGenerator() => SG().Match(s_haystack);
+    [Benchmark] public string SourceGenerator() => ReportColumnRegex().Replace(s_haystack, " ");
+
 }
