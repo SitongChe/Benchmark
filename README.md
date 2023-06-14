@@ -1,6 +1,6 @@
 # Benchmark
-learning from Performance Improvements in .NET 7 - .NET Blog (microsoft.com)![image](https://github.com/SitongChe/Benchmark/assets/12755002/8f7359a8-d4b0-427f-ba68-84874b61b486)
-
+learning from Performance Improvements in .NET 7 - .NET Blog (microsoft.com)
+https://devblogs.microsoft.com/dotnet/performance_improvements_in_net_7/
 
 to run a benchmark comparing performance on .NET 6 and .NET 7, do:
 dotnet run -c Release -f net6.0 --filter '**' --runtimes net6.0 net7.0
